@@ -1,16 +1,16 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export async function createNote(formData: FormData) {
+  "use server";
+  const supabase = await createClient();
+  const title = formData.get("title") as string;
+
+  await supabase.from("notes").insert({ title });
+  redirect("/notes");
+}
 
 export default function NewNotePage() {
-  async function createNote(formData: FormData) {
-    'use server'
-    const supabase = await createClient()
-    const title = formData.get('title') as string
-
-    await supabase.from('notes').insert({ title })
-    redirect('/notes')
-  }
-
   return (
     <form action={createNote} className="max-w-md mx-auto p-6 space-y-4">
       <h1 className="text-xl font-bold">New Note</h1>
@@ -26,5 +26,5 @@ export default function NewNotePage() {
         Save
       </button>
     </form>
-  )
+  );
 }
