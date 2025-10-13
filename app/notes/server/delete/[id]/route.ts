@@ -14,5 +14,5 @@ export async function POST(
     return NextResponse.json({ success: false, error: error.message }, { status: 400 })
   }
 
-  return NextResponse.redirect(new URL('/notes', request.url))
+  return NextResponse.redirect(new URL('/notes/server', request.url))
 }
